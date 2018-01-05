@@ -2,7 +2,7 @@ package org.misha.loggers;
 
 import org.apache.log4j.Logger;
 import org.misha.event.Event;
-import org.misha.event.EventLogger;
+import org.misha.EventLogger;
 import org.misha.event.EventType;
 
 import javax.annotation.PostConstruct;
@@ -46,6 +46,7 @@ public class FileEventLogger implements EventLogger {
     @PostConstruct
     void init() throws IOException {
         log.info("post construct on " + this.getClass().getSimpleName());
-        if (!new File(fileName).canWrite()) throw new IOException("can't write to " + fileName);
+        final File file = new File(fileName);
+        if (!file.canWrite()) throw new IOException("can't write to " + file.getAbsolutePath());
     }
 }

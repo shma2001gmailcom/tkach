@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns="http://www.springframework.org/schema/beans" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans-3.2.xsd http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
+        http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
     <bean id="log" class="org.apache.log4j.Logger" factory-method="getLogger">
-        <constructor-arg type="java.lang.String" value="org.misha.event.EventLogger"/>
+        <constructor-arg type="java.lang.String" value="org.misha.EventLogger"/>
     </bean>
     <bean id="consoleEventLogger" class="org.misha.loggers.ConsoleEventLogger"/>
     <bean id="fileEventLogger" class="org.misha.loggers.FileEventLogger">
@@ -31,7 +31,6 @@
         <constructor-arg ref="fastDateFormat"/>
     </bean>
     <bean id="fastDateFormat" class="org.apache.commons.lang3.time.FastDateFormat" factory-method="getInstance">
-        <constructor-arg value="yyyy-MM-dd hh:mm:ss.SSSSS"/>
+        <constructor-arg value="${date-format}"/>
     </bean>
-
 </beans>

@@ -1,7 +1,7 @@
 package org.misha.loggers;
 
 import org.misha.event.Event;
-import org.misha.event.EventLogger;
+import org.misha.EventLogger;
 import org.misha.event.EventType;
 
 import javax.inject.Inject;

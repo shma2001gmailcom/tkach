@@ -42,9 +42,12 @@ public class StatisticAspect {
         counter.get(c).incrementAndGet();
     }
 
-    public void statistic() {
+    public void statistic(final Map<String, Object> map) {
+        final Map<String, Integer> view = new HashMap<>();
         for (final Class<?> c : counter.keySet()) {
+            view.put(c.getSimpleName(), counter.get(c).intValue());
             log.debug(c.getSimpleName() + " = " + counter.get(c).intValue());
         }
+        map.put("logs", view);
     }
 }

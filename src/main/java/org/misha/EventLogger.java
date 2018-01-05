@@ -1,4 +1,7 @@
-package org.misha.event;
+package org.misha;
+
+import org.misha.event.Event;
+import org.misha.event.EventType;
 
 /**
  * author: misha

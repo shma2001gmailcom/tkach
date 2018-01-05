@@ -1,21 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns="http://www.springframework.org/schema/beans" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xmlns="http://www.springframework.org/schema/beans"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
         http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/jdbc
+        http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
     <context:annotation-config/>
-    <import resource="context/loggers-context.xml"/>
-    <import resource="context/aspects-context.xml"/>
+    <import resource="loggers-context.xml"/>
+    <import resource="aspects-context.xml"/>
     <bean id="calendar" class="java.util.GregorianCalendar" factory-method="getInstance"/>
     <bean id="client" class="org.misha.Client" scope="prototype">
         <constructor-arg name="id" value="#{T(org.misha.TestUtil).id()}"/>
         <constructor-arg name="fullName" value="#{T(org.misha.TestUtil).name()}"/>
-        <property name="greeting" value="#{calendar.getTimeInMillis() % 3 == 0 ? 'Hello here!' : calendar.getTimeInMillis() % 3 == 1 ? 'Goodbye there!' : 'Hello there'}"/>
+        <property name="greeting"
+                  value="#{calendar.getTimeInMillis()%3==0?'Hello here!'
+                        :calendar.getTimeInMillis()%3==1?'Goodbye there!'
+                        :'Hello there'}"/>
     </bean>
-    <bean id="app" class="org.misha.App">
+    <bean id="loggingService" class="org.misha.service.LoggerHolder">
         <constructor-arg name="mainLogger" ref="combinedEventLogger"/>
         <constructor-arg name="statistic" ref="statistic"/>
         <constructor-arg name="dbLogger" ref="dbLogger"/>

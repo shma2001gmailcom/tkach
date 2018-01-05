@@ -5,10 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.misha</groupId>
     <artifactId>tkach</artifactId>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
     <name>tkach</name>
-
     <properties>
         <spring-version>3.2.18.RELEASE</spring-version>
         <aspectj-version>1.8.13</aspectj-version>
@@ -20,62 +19,92 @@
             <artifactId>spring-context</artifactId>
             <version>${spring-version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context-support</artifactId>
             <version>${spring-version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
             <version>${spring-version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>3.3.2</version>
         </dependency>
-
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>2.4</version>
         </dependency>
-
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
             <version>${aspectj-version}</version>
         </dependency>
-
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjrt</artifactId>
             <version>${aspectj-version}</version>
         </dependency>
-
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>1.2.17</version>
         </dependency>
-
         <dependency>
             <groupId>javax.inject</groupId>
             <artifactId>javax.inject</artifactId>
             <version>1</version>
         </dependency>
-
         <dependency>
             <groupId>org.apache.derby</groupId>
             <artifactId>derby</artifactId>
             <version>${derby-version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${spring-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+        </dependency>
+        <dependency>
+            <groupId>taglibs</groupId>
+            <artifactId>standard</artifactId>
+            <scope>runtime</scope>
+            <version>1.1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>taglibs</groupId>
+            <artifactId>c</artifactId>
+            <version>1.1.2</version>
+            <scope>runtime</scope>
+            <type>tld</type>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>taglibs</groupId>
+            <artifactId>fmt</artifactId>
+            <version>1.1.2</version>
+            <scope>runtime</scope>
+            <type>tld</type>
+        </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
