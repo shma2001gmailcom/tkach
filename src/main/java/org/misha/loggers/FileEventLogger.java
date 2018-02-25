@@ -1,8 +1,8 @@
 package org.misha.loggers;
 
 import org.apache.log4j.Logger;
-import org.misha.event.Event;
 import org.misha.EventLogger;
+import org.misha.event.Event;
 import org.misha.event.EventType;
 
 import javax.annotation.PostConstruct;
@@ -11,6 +11,7 @@ import javax.inject.Named;
 import java.io.File;
 import java.io.IOException;
 
+import static org.apache.commons.io.FileUtils.readFileToString;
 import static org.apache.commons.io.FileUtils.writeStringToFile;
 import static org.misha.event.EventType.ERROR;
 
@@ -36,6 +37,10 @@ public class FileEventLogger implements EventLogger {
         } catch (final IOException e) {
             log.error(e.getMessage(), e);
         }
+    }
+
+    public String getDetails() throws IOException {
+        return readFileToString(new File(fileName));
     }
 
     @Override

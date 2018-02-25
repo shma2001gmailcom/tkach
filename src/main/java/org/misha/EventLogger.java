@@ -13,4 +13,6 @@ public interface EventLogger {
     void logEvent(Event event);
 
     boolean suitableFor(EventType type);
+
+    String getDetails() throws Exception;
 }

@@ -1,5 +1,7 @@
 package org.misha;
 
+import org.misha.rest.ViewType;
+
 import java.util.Map;
 
 /**
@@ -10,4 +12,6 @@ import java.util.Map;
 public interface LoggingService {
 
    void logEvents(Map<String, Object> map);
+
+   String getDetails(ViewType viewType) throws Exception;
 }

@@ -74,4 +74,4 @@ echo ///////////////////////////
 bash startup.sh
 sleep 10
 #firefox "http://localhost:8080/"${appname}
-chromium-browser 'http://localhost:8080/tkach/rest/Statistic Report'
+chromium-browser 'http://localhost:8080/tkach/rest/list'

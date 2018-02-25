@@ -33,4 +33,9 @@ public class ConsoleEventLogger implements EventLogger {
     public boolean suitableFor(final EventType type) {
         return type == ERROR;
     }
+
+    @Override
+    public String getDetails() throws Exception {
+        return "console details is unavailable";
+    }
 }

@@ -1,7 +1,7 @@
 package org.misha.loggers;
 
-import org.misha.event.Event;
 import org.misha.EventLogger;
+import org.misha.event.Event;
 import org.misha.event.EventType;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * author: misha
@@ -34,12 +35,18 @@ public class DbLogger implements EventLogger {
     @Override
     public void logEvent(Event event) {
         jdbcTemplate.update("insert into EVENT(EVENT_ID, EVENT_TIME, MESSAGE) values (?, ?, ?)", event.getId(),
-                            Calendar.getInstance(), event.getMsg());
+                            Calendar.getInstance(), event.getMsg()
+        );
     }
 
     @Override
     public boolean suitableFor(EventType type) {
         return true;
+    }
+
+    @Override
+    public String getDetails() throws Exception {
+        return Objects.toString(getEvents());
     }
 
     public void setDataSource(DataSource dataSource) {
@@ -50,9 +57,9 @@ public class DbLogger implements EventLogger {
         return jdbcTemplate.query("select * from EVENT", new RowMapper<String>() {
             @Override
             public String mapRow(ResultSet resultSet, int i) throws SQLException {
-                return resultSet.getString("EVENT_ID") + "\n"
-                        + resultSet.getTimestamp("EVENT_TIME") + "\n"
-                        + resultSet.getString("MESSAGE");
+                return '\n' + resultSet.getString("EVENT_ID") 
+                        + '\n' + resultSet.getTimestamp("EVENT_TIME") 
+                        + '\n' + resultSet.getString("MESSAGE");
             }
         });
     }
