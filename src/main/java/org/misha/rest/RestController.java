@@ -31,7 +31,7 @@ public class RestController {
         holder.logEvents(model);
         model.put("anArgument", s);
         switch (s) {
-            case "list" : return "list";
+            case "ConsoleEventLogger" : return "console";
             case "FileEventLogger" : return fileDetails(model);
             case "CachedEventLogger" : return cacheDetails(model);
             case "DbLogger" : return dbDetails(model);
@@ -39,21 +39,21 @@ public class RestController {
         }
     }
 
-    @RequestMapping(value = "/rest/file", method = RequestMethod.GET)
+    @RequestMapping(value = "/file", method = RequestMethod.GET)
     public String fileDetails(final ModelMap model) throws Exception {
        model.clear();
        model.put("details", holder.getDetails(FILE));
        return "file";
     }
 
-    @RequestMapping(value = "/rest/cached", method = RequestMethod.GET)
+    @RequestMapping(value = "/cached", method = RequestMethod.GET)
     public String cacheDetails(final ModelMap model) throws Exception {
         model.clear();
         model.put("details", holder.getDetails(CACHED));
         return "cached";
     }
 
-    @RequestMapping(value = "/rest/data-base", method = RequestMethod.GET)
+    @RequestMapping(value = "/data-base", method = RequestMethod.GET)
     public String dbDetails(final ModelMap model) throws Exception {
         model.clear();
         model.put("details", holder.getDetails(DB));

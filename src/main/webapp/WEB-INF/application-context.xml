@@ -19,7 +19,7 @@
         <property name="greeting"
                   value="#{calendar.getTimeInMillis()%3==0?'Hello here!'
                         :calendar.getTimeInMillis()%3==1?'Goodbye there!'
-                        :'Hello there'}"/>
+                        :'Hi gius and chicks!'}"/>
     </bean>
     <bean id="loggingService" class="org.misha.service.LoggerHolder">
         <constructor-arg name="mainLogger" ref="combinedEventLogger"/>

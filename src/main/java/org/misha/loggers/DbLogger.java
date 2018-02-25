@@ -46,7 +46,8 @@ public class DbLogger implements EventLogger {
 
     @Override
     public String getDetails() throws Exception {
-        return Objects.toString(getEvents());
+        return Objects.toString(getEvents()).replaceAll("\\[", "")
+                      .replaceAll("],", "<br/>").replaceAll("]]", "");
     }
 
     public void setDataSource(DataSource dataSource) {
@@ -55,6 +56,7 @@ public class DbLogger implements EventLogger {
 
     public List<String> getEvents() {
         return jdbcTemplate.query("select * from EVENT", new RowMapper<String>() {
+
             @Override
             public String mapRow(ResultSet resultSet, int i) throws SQLException {
                 return '\n' + resultSet.getString("EVENT_ID") 
