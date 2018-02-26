@@ -5,8 +5,8 @@
     <title>cached</title>
 </head>
 <body style="background: #d2d3bf;">
-<h2>This is ${anArgument}</h2>
-cached
+<h2>This is cached logger production</h2>
+<p>
 ${details}
 </body>
 </html>

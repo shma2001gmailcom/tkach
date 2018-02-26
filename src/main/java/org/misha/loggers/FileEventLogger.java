@@ -40,7 +40,7 @@ public class FileEventLogger implements EventLogger {
     }
 
     public String getDetails() throws IOException {
-        return readFileToString(new File(fileName));
+        return readFileToString(new File(fileName)).replaceAll("\norg\\.misha\\.event\\.Event@", "<p>org.misha.event.Event@");
     }
 
     @Override
