@@ -23,7 +23,7 @@ public class CachedEventLogger extends FileEventLogger {
     private final Logger log;
     private final int size;
     private final List<Event> cache = new ArrayList<>();
-
+    
     @Inject
     @Named
     private CachedEventLogger(final String fileName, final int size, final Logger log) {
@@ -31,7 +31,7 @@ public class CachedEventLogger extends FileEventLogger {
         this.size = size;
         this.log = log;
     }
-
+    
     @Override
     public void logEvent(final Event event) {
         if (cache.size() <= size) {
@@ -41,12 +41,12 @@ public class CachedEventLogger extends FileEventLogger {
         reset();
         super.logEvent(event);
     }
-
+    
     @Override
     public boolean suitableFor(final EventType type) {
         return type == INFO || type == DEFAULT;
     }
-
+    
     @PreDestroy
     private void reset() {
         log.info("pre destroy");

@@ -9,10 +9,10 @@ import org.misha.event.EventType;
  * time: 2:52 AM
  */
 public interface EventLogger {
-
+    
     void logEvent(Event event);
-
+    
     boolean suitableFor(EventType type);
-
+    
     String getDetails() throws Exception;
 }

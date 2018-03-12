@@ -28,7 +28,7 @@ public class LoggerHolder implements LoggingService {
     private final StatisticAspect statistic;
     private final EventLogger dbLogger;
     private final ApplicationContext context;
-
+    
     @Inject
     @Named
     private LoggerHolder(
@@ -42,7 +42,7 @@ public class LoggerHolder implements LoggingService {
         this.dbLogger = dbLogger;
         this.context = context;
     }
-
+    
     /**
      * add data for view
      *
@@ -64,7 +64,7 @@ public class LoggerHolder implements LoggingService {
         }
         statistic.statistic(map);
     }
-
+    
     @Override
     public String getDetails(ViewType viewType) throws Exception {
         switch (viewType) {
@@ -74,7 +74,7 @@ public class LoggerHolder implements LoggingService {
                 return mainLogger.getDetails();
         }
     }
-
+    
     private Event fireEvent(final int randomTypeIndex) {
         final Event event = getEvent();
         final EventType[] values = EventType.values();
@@ -82,15 +82,15 @@ public class LoggerHolder implements LoggingService {
         event.setMsg(context.getBean(Client.class).toString());
         return event;
     }
-
+    
     private Event getEvent() {
         return context.getBean(Event.class);
     }
-
+    
     private Logger getLog4j() {
         return context.getBean(org.apache.log4j.Logger.class);
     }
-
+    
     private DbLogger getDbLogger() {
         return new DbLogger(context.getBean(JdbcTemplate.class));
     }

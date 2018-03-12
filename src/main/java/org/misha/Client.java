@@ -15,43 +15,43 @@ public class Client {
     private String greeting;
     private String id;
     private String fullName;
-
+    
     @Inject
     @Named
     private Client(final String id, final String fullName) {
         this.id = id;
         this.fullName = fullName;
     }
-
+    
     @SuppressWarnings("unused")
     String getId() {
-
+        
         return id;
     }
-
+    
     @SuppressWarnings("unused")
     public void setId(String id) {
         this.id = id;
     }
-
+    
     @SuppressWarnings("unused")
     String getFullName() {
         return fullName;
     }
-
+    
     @SuppressWarnings("unused")
     public void setFullName(String fullName) {
         this.fullName = fullName;
     }
-
-    public void setGreeting(String greeting) {
-        this.greeting = greeting;
-    }
-
+    
     public String getGreeting() {
         return greeting;
     }
-
+    
+    public void setGreeting(String greeting) {
+        this.greeting = greeting;
+    }
+    
     @Override
     public String toString() {
         return new ToStringBuilder(this)

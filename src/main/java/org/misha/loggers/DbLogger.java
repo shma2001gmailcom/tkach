@@ -22,45 +22,45 @@ import java.util.Objects;
  */
 @Named("dbLogger")
 public class DbLogger implements EventLogger {
+    private final JdbcTemplate jdbcTemplate;
     @SuppressWarnings({"unused", "field injection"})
     @Inject
     private DataSource dataSource;
-    private final JdbcTemplate jdbcTemplate;
-
+    
     @Inject
     public DbLogger(final JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
-
+    
     @Override
     public void logEvent(Event event) {
         jdbcTemplate.update("insert into EVENT(EVENT_ID, EVENT_TIME, MESSAGE) values (?, ?, ?)", event.getId(),
-                            Calendar.getInstance(), event.getMsg()
+                Calendar.getInstance(), event.getMsg()
         );
     }
-
+    
     @Override
     public boolean suitableFor(EventType type) {
         return true;
     }
-
+    
     @Override
     public String getDetails() throws Exception {
         return Objects.toString(getEvents()).replaceAll("\\[", "")
-                      .replaceAll("],", "<br/>").replaceAll("]]", "");
+                .replaceAll("],", "<br/>").replaceAll("]]", "");
     }
-
+    
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
     }
-
+    
     public List<String> getEvents() {
         return jdbcTemplate.query("select * from EVENT", new RowMapper<String>() {
-
+            
             @Override
             public String mapRow(ResultSet resultSet, int i) throws SQLException {
-                return '\n' + resultSet.getString("EVENT_ID") 
-                        + '\n' + resultSet.getTimestamp("EVENT_TIME") 
+                return '\n' + resultSet.getString("EVENT_ID")
+                        + '\n' + resultSet.getTimestamp("EVENT_TIME")
                         + '\n' + resultSet.getString("MESSAGE");
             }
         });

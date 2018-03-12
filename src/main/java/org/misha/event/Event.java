@@ -17,32 +17,32 @@ import java.util.Calendar;
 public class Event {
     private final int id;
     private final FastDateFormat df;
-    final private Calendar date;
+    private final  Calendar date;
     private String msg;
     private EventType type;
-
+    
     @Inject
     private Event(@Named final Calendar calendar, final FastDateFormat df) {
         this.date = calendar;
         this.df = df;
         this.id = new SecureRandom().nextInt();
     }
-
+    
     @SuppressWarnings("unused")
     public int getId() {
         return id;
     }
-
+    
     @SuppressWarnings("unused")
     public String getMsg() {
         return msg;
     }
-
+    
     @SuppressWarnings("unused")
     public void setMsg(String msg) {
         this.msg = msg;
     }
-
+    
     @Override
     public String toString() {
         return new ToStringBuilder(this)
@@ -50,11 +50,11 @@ public class Event {
                 .append("msg", msg)
                 .append("date", df.format(date)).toString();
     }
-
+    
     public EventType getType() {
         return type;
     }
-
+    
     public void setType(EventType type) {
         this.type = type;
     }

@@ -10,8 +10,8 @@ import java.util.Map;
  * time: 9:07 PM
  */
 public interface LoggingService {
-
-   void logEvents(Map<String, Object> map);
-
-   String getDetails(ViewType viewType) throws Exception;
+    
+    void logEvents(Map<String, Object> map);
+    
+    String getDetails(ViewType viewType) throws Exception;
 }

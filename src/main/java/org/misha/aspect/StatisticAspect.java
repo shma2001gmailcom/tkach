@@ -22,17 +22,17 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class StatisticAspect {
     private final Map<Class<?>, AtomicInteger> counter;
     private final Logger log;
-
+    
     @Inject
     private StatisticAspect(final Logger log) {
         this.log = log;
         this.counter = new HashMap<>();
     }
-
+    
     @Pointcut("execution(* *.logEvent(..))")
     private void allLogEvents() {
     }
-
+    
     @AfterReturning("allLogEvents()")
     private void count(JoinPoint joinPoint) {
         final Class<?> c = joinPoint.getTarget().getClass();
@@ -41,10 +41,11 @@ public class StatisticAspect {
         }
         counter.get(c).incrementAndGet();
     }
-
+    
     public void statistic(final Map<String, Object> map) {
         final Map<String, Integer> view = new HashMap<>();
-        for (final Class<?> c : counter.keySet()) {
+        for (final Map.Entry<Class<?>, AtomicInteger> e : counter.entrySet()) {
+            final Class<?> c = e.getKey();
             view.put(c.getSimpleName(), counter.get(c).intValue());
             log.debug(c.getSimpleName() + " = " + counter.get(c).intValue());
         }

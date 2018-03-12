@@ -8,10 +8,10 @@ import java.util.Random;
  * time: 5:11 PM
  */
 public class TestUtil {
-
+    
     private TestUtil() {
     }
-
+    
     public static String name() {
         switch (new Random().nextInt() % 6) {
             case 0:
@@ -28,7 +28,7 @@ public class TestUtil {
                 return "Basil The Great";
         }
     }
-
+    
     public static String id() {
         return String.valueOf(new Random().nextInt());
     }

@@ -11,6 +11,6 @@
     <title>error</title>
 </head>
 <body>
-    error: invalid url
+error: invalid url
 </body>
 </html>

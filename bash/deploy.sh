@@ -15,22 +15,32 @@ appname="tkach"
 ###############################################
 #appfolder="/home/mshevelin/workspace/"${appname}"-assembla"
 #tomcatfolder="/home/mshevelin/workspace/tomcat6"
-javahome="/usr/lib/jvm/java-7-oracle"
+#javahome="/usr/lib/jvm/java-7-oracle"
+javahome=/home/misha/sym-misha/work/jdk1.8.0_121
+
 
 ################################################
 ################ AT HOME #######################
 ################################################
-appfolder="/home/misha/workspace/"${appname}
-tomcatfolder="/home/misha/workspace/tomcat6"
-M3_HOME='/opt/apache-maven-3.2.2'
+appfolder="/home/misha/sym-misha/workspace/"${appname}
+#tomcatfolder="/home/misha/workspace/tomcat6"
+#M3_HOME='/opt/apache-maven-3.2.2'
 #M3_HOME=/home/misha/workspace/apache-maven-3.3.9
+tomcatfolder="/home/misha/sym-misha/workspace/tomcat/"
+M3_HOME=/usr/share/maven
 export M3_HOME
 M3=${M3_HOME}/bin
 export M3
 PATH=${PATH}:${M3}
 export PATH
 logfile='./1'
+basepath=/home/misha/sym-misha/workspace/
 
+# make /logs/tkach.log file
+if [[ ! -e ${basepath}/logs/tkach.log ]]; then
+    mkdir -p ${basepath}/logs
+    touch ${basepath}/logs/tkach.log
+fi
 ################################################
 export JAVA_HOME=${javahome}
 tomcatbin=${tomcatfolder}/bin
@@ -74,4 +84,6 @@ echo ///////////////////////////
 bash startup.sh
 sleep 10
 #firefox "http://localhost:8080/"${appname}
-chromium-browser 'http://localhost:8080/tkach/rest/list'
+#chromium-browser 'http://localhost:8080/tkach/rest/list'
+export BROWSER=google-chrome-stable
+${BROWSER} 'http://localhost:8080/tkach/rest/list'

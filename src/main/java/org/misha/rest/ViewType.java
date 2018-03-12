@@ -6,42 +6,17 @@ package org.misha.rest;
  * time: 12:24 PM
  */
 public enum ViewType {
-    LIST("list", "list"),
-    FILE("FileEventLogger", "file"),
-    CACHED("CachedEventLogger", "cached"),
-    DB("DbLogger", "data-base");
-
+    FILE("FileEventLogger"),
+    CACHED("CachedEventLogger"),
+    DB("DbLogger");
+    
     private final String type;
-    private final String view;
-
-    ViewType(String type, String view) {
+    
+    ViewType(String type) {
         this.type = type;
-        this.view = view;
     }
-
+    
     public String getType() {
         return type;
-    }
-
-    public String getView() {
-        return view;
-    }
-
-    public static ViewType getByType(String type) {
-        for (ViewType vt : values()) {
-            if (vt.type.equals(type)) {
-                return vt;
-            }
-        }
-        throw new IllegalStateException("no such type");
-    }
-
-    public static ViewType getByView(String view) {
-        for (ViewType vt : values()) {
-            if (vt.type.equals(view)) {
-                return vt;
-            }
-        }
-        throw new IllegalStateException("no such type");
     }
 }

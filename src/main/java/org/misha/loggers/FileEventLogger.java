@@ -24,13 +24,13 @@ import static org.misha.event.EventType.ERROR;
 public class FileEventLogger implements EventLogger {
     private final String fileName;
     private final Logger log;
-
+    
     @Inject
     FileEventLogger(@Named final String fileName, final Logger log) {
         this.fileName = fileName;
         this.log = log;
     }
-
+    
     public void logEvent(final Event event) {
         try {
             writeStringToFile(new File(fileName), event.toString() + "\n", true);
@@ -38,16 +38,16 @@ public class FileEventLogger implements EventLogger {
             log.error(e.getMessage(), e);
         }
     }
-
+    
     public String getDetails() throws IOException {
         return readFileToString(new File(fileName)).replaceAll("\norg\\.misha\\.event\\.Event@", "<p>org.misha.event.Event@");
     }
-
+    
     @Override
     public boolean suitableFor(final EventType type) {
         return type == ERROR;
     }
-
+    
     @PostConstruct
     void init() throws IOException {
         log.info("post construct on " + this.getClass().getSimpleName());
