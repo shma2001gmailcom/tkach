@@ -18,7 +18,7 @@ import static org.misha.rest.ViewType.*;
  */
 @Controller
 @RequestMapping(value = "/rest")
-public class RestController {
+public final class RestController {
     private static final String DETAILS_KEY = "details";
     private final LoggingService holder;
     

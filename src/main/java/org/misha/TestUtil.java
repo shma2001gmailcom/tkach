@@ -7,7 +7,7 @@ import java.util.Random;
  * date: 1/3/18
  * time: 5:11 PM
  */
-public class TestUtil {
+public final class TestUtil {
     
     private TestUtil() {
     }
