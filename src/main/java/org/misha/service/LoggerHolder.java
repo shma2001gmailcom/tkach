@@ -7,10 +7,8 @@ import org.misha.LoggingService;
 import org.misha.aspect.StatisticAspect;
 import org.misha.event.Event;
 import org.misha.event.EventType;
-import org.misha.loggers.DbLogger;
 import org.misha.rest.ViewType;
 import org.springframework.context.ApplicationContext;
-import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -34,7 +32,7 @@ public final class LoggerHolder implements LoggingService {
     private LoggerHolder(
             final EventLogger mainLogger,
             final StatisticAspect statistic,
-            final EventLogger dbLogger,
+            @Named("dbLogger") final EventLogger dbLogger,
             final ApplicationContext context
     ) {
         this.mainLogger = mainLogger;
@@ -59,19 +57,18 @@ public final class LoggerHolder implements LoggingService {
             mainLogger.logEvent(event);
             dbLogger.logEvent(event);
         }
-        for (final String s : getDbLogger().getEvents()) {
+        for (final String s : dbLogger.getEvents()) {
             getLog4j().debug(s);
         }
         statistic.statistic(map);
     }
     
     @Override
-    public String getDetails(ViewType viewType) throws Exception {
-        switch (viewType) {
-            case DB:
-                return dbLogger.getDetails();
-            default:
-                return mainLogger.getDetails();
+    public String getDetails(final ViewType viewType) throws Exception {
+        if (viewType == ViewType.DB) {
+            return dbLogger.getDetails();
+        } else {
+            return mainLogger.getDetails();
         }
     }
     
@@ -89,9 +86,5 @@ public final class LoggerHolder implements LoggingService {
     
     private Logger getLog4j() {
         return context.getBean(org.apache.log4j.Logger.class);
-    }
-    
-    private DbLogger getDbLogger() {
-        return new DbLogger(context.getBean(JdbcTemplate.class));
     }
 }

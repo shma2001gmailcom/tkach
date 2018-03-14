@@ -7,6 +7,7 @@ import org.misha.event.EventType;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.util.List;
 
 import static org.misha.event.EventType.ERROR;
 
@@ -37,5 +38,10 @@ public final class ConsoleEventLogger implements EventLogger {
     @Override
     public String getDetails() throws Exception {
         return "console details is unavailable";
+    }
+    
+    @Override
+    public List<String> getEvents() {
+        return null;
     }
 }

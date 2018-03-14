@@ -46,4 +46,9 @@ public final class CombinedEventLogger implements EventLogger {
     public String getDetails() throws Exception {
         return defaultLogger.getDetails();
     }
+    
+    @Override
+    public List<String> getEvents() {
+        return null;
+    }
 }

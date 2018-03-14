@@ -3,6 +3,8 @@ package org.misha;
 import org.misha.event.Event;
 import org.misha.event.EventType;
 
+import java.util.List;
+
 /**
  * author: misha
  * date: 1/3/18
@@ -15,4 +17,6 @@ public interface EventLogger {
     boolean suitableFor(EventType type);
     
     String getDetails() throws Exception;
+    
+    List<String> getEvents();
 }
