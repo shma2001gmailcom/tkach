@@ -11,8 +11,8 @@
         <constructor-arg value="${log-file-path}"/>
     </bean>
     <bean id="cachedEventLogger" class="org.misha.loggers.CachedEventLogger" parent="fileEventLogger">
-        <constructor-arg name="size" value="${cache-size}"/>
-        <constructor-arg name="log" ref="log"/>
+        <constructor-arg name="length" value="${cache-size}"/>
+        <constructor-arg name="logger" ref="log"/>
     </bean>
     <bean id="combinedEventLogger" class="org.misha.loggers.CombinedEventLogger">
         <constructor-arg>

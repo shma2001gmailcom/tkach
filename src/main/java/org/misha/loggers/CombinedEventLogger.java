@@ -15,7 +15,7 @@ import java.util.List;
  */
 @SuppressWarnings("unused")
 @Named("combinedEventLogger")
-public class CombinedEventLogger implements EventLogger {
+public final class CombinedEventLogger implements EventLogger {
     private final List<EventLogger> loggers;
     private final EventLogger defaultLogger;
     
@@ -29,8 +29,11 @@ public class CombinedEventLogger implements EventLogger {
     @Override
     public void logEvent(final Event event) {
         for (final EventLogger logger : loggers) {
-            if (logger.suitableFor(event.getType())) logger.logEvent(event);
-            else defaultLogger.logEvent(event);
+            if (logger.suitableFor(event.getType())) {
+                logger.logEvent(event);
+            } else {
+                defaultLogger.logEvent(event);
+            }
         }
     }
     

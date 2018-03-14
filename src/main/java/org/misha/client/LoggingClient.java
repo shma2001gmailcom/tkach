@@ -16,8 +16,8 @@ public class LoggingClient {
         Kind(String kind) {
             this.kind = kind;
         }
-        
-        private static String getLogs(String kind) {
+    
+        private static String getLogs(final String kind) {
             return new RestTemplate().getForObject("http://localhost:8080/tkach/rest/" + kind, String.class);
         }
         

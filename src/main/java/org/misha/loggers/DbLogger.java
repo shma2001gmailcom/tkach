@@ -21,7 +21,7 @@ import java.util.Objects;
  * time: 12:29 PM
  */
 @Named("dbLogger")
-public class DbLogger implements EventLogger {
+public final class DbLogger implements EventLogger {
     private final JdbcTemplate jdbcTemplate;
     @SuppressWarnings({"unused", "field injection"})
     @Inject
@@ -33,14 +33,14 @@ public class DbLogger implements EventLogger {
     }
     
     @Override
-    public void logEvent(Event event) {
+    public void logEvent(final Event event) {
         jdbcTemplate.update("insert into EVENT(EVENT_ID, EVENT_TIME, MESSAGE) values (?, ?, ?)", event.getId(),
                 Calendar.getInstance(), event.getMsg()
         );
     }
     
     @Override
-    public boolean suitableFor(EventType type) {
+    public boolean suitableFor(final EventType type) {
         return true;
     }
     
@@ -58,7 +58,7 @@ public class DbLogger implements EventLogger {
         return jdbcTemplate.query("select * from EVENT", new RowMapper<String>() {
             
             @Override
-            public String mapRow(ResultSet resultSet, int i) throws SQLException {
+            public String mapRow(final ResultSet resultSet, final int i) throws SQLException {
                 return '\n' + resultSet.getString("EVENT_ID")
                         + '\n' + resultSet.getTimestamp("EVENT_TIME")
                         + '\n' + resultSet.getString("MESSAGE");

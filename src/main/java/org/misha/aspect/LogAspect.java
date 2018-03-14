@@ -17,7 +17,7 @@ import javax.inject.Named;
  */
 @Aspect
 @Named
-public class LogAspect {
+public final class LogAspect {
     private final Logger log;
     
     @Inject
@@ -27,17 +27,18 @@ public class LogAspect {
     
     @Pointcut("execution(* *.logEvent(..))")
     private void allLogEvents() {
+        //a pointcut
     }
     
     @Before("allLogEvents()")
-    public void logBefore(JoinPoint joinPoint) {
+    public void logBefore(final JoinPoint joinPoint) {
         log.info("BEFORE: " + joinPoint.getTarget().getClass().getSimpleName()
                 + " " + joinPoint.getThis().getClass().getSimpleName()
                 + " " + joinPoint.getSignature().getName());
     }
     
     @AfterReturning(pointcut = "allLogEvents()", returning = "retVal")
-    public void logAfter(Object retVal) {
+    public void logAfter(final Object retVal) {
         log.info("AFTER: retVal: " + retVal);
     }
 }

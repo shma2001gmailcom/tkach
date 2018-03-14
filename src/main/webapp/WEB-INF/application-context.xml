@@ -14,8 +14,8 @@
     <import resource="aspects-context.xml"/>
     <bean id="calendar" class="java.util.GregorianCalendar" factory-method="getInstance"/>
     <bean id="client" class="org.misha.Client" scope="prototype">
-        <constructor-arg name="id" value="#{T(org.misha.TestUtil).id()}"/>
-        <constructor-arg name="fullName" value="#{T(org.misha.TestUtil).name()}"/>
+        <constructor-arg name="s" value="#{T(org.misha.TestUtil).id()}"/>
+        <constructor-arg name="name" value="#{T(org.misha.TestUtil).name()}"/>
         <property name="greeting"
                   value="#{calendar.getTimeInMillis()%3==0?'Hello here!'
                         :calendar.getTimeInMillis()%3==1?'Goodbye there!'

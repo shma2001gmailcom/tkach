@@ -14,7 +14,7 @@ import java.util.Calendar;
  * time: 3:22 AM
  */
 @Named
-public class Event {
+public final class Event {
     private final int id;
     private final FastDateFormat df;
     private final  Calendar date;
@@ -39,7 +39,7 @@ public class Event {
     }
     
     @SuppressWarnings("unused")
-    public void setMsg(String msg) {
+    public void setMsg(final String msg) {
         this.msg = msg;
     }
     
@@ -55,7 +55,7 @@ public class Event {
         return type;
     }
     
-    public void setType(EventType type) {
+    public void setType(final EventType type) {
         this.type = type;
     }
 }

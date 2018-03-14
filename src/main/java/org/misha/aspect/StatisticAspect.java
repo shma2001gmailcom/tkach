@@ -19,7 +19,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 @Aspect
 @Named("statistic")
-public class StatisticAspect {
+public final class StatisticAspect {
     private final Map<Class<?>, AtomicInteger> counter;
     private final Logger log;
     
@@ -31,6 +31,7 @@ public class StatisticAspect {
     
     @Pointcut("execution(* *.logEvent(..))")
     private void allLogEvents() {
+        //a pointcut
     }
     
     @AfterReturning("allLogEvents()")

@@ -11,7 +11,7 @@ import static org.misha.client.LoggingClient.Kind;
  * date: 3/11/18
  * time: 2:48 PM
  */
-@Ignore//run after deploy
+@Ignore//run it after deploy
 public class ViewTest {
     
     @Test

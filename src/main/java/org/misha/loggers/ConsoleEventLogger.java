@@ -17,7 +17,7 @@ import static org.misha.event.EventType.ERROR;
  */
 @SuppressWarnings("unused")
 @Named
-public class ConsoleEventLogger implements EventLogger {
+public final class ConsoleEventLogger implements EventLogger {
     private Logger log;
     
     @Inject

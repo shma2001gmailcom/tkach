@@ -11,16 +11,16 @@ import javax.inject.Named;
  * time: 2:27 AM
  */
 @Named
-public class Client {
+public final class Client {
     private String greeting;
     private String id;
     private String fullName;
     
     @Inject
     @Named
-    private Client(final String id, final String fullName) {
-        this.id = id;
-        this.fullName = fullName;
+    private Client(final String s, final String name) {
+        id = s;
+        fullName = name;
     }
     
     @SuppressWarnings("unused")
@@ -40,16 +40,16 @@ public class Client {
     }
     
     @SuppressWarnings("unused")
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setFullName(final String name) {
+        fullName = name;
     }
     
     public String getGreeting() {
         return greeting;
     }
     
-    public void setGreeting(String greeting) {
-        this.greeting = greeting;
+    public void setGreeting(final String text) {
+        greeting = text;
     }
     
     @Override
