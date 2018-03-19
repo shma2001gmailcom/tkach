@@ -10,11 +10,14 @@ import org.springframework.web.client.RestTemplate;
 public class LoggingClient {
     public enum Kind {
         LIST("list"), CACHED("cached"), COMBINED("combined"), CONSOLE("console"), FILE("file"), DB("db");
-        
-        private final String kind;
+    
+        /**
+         * string-value for kind
+         */
+        private final String name;
         
         Kind(String kind) {
-            this.kind = kind;
+            name = kind;
         }
     
         private static String getLogs(final String kind) {
@@ -22,7 +25,7 @@ public class LoggingClient {
         }
         
         public String getView() {
-            return getLogs(kind);
+            return getLogs(name);
         }
     }
 }

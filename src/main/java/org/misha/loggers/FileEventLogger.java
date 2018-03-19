@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 import static org.apache.commons.io.FileUtils.readFileToString;
@@ -41,12 +42,13 @@ public class FileEventLogger implements EventLogger {
     }
     
     public String getDetails() throws IOException {
-        return readFileToString(new File(fileName)).replaceAll("\norg\\.misha\\.event\\.Event@", "<p>org.misha.event.Event@");
+        return readFileToString(new File(fileName))
+                .replaceAll("\norg\\.misha\\.event\\.Event@", "<p>org.misha.event.Event@");
     }
     
     @Override
     public List<String> getEvents() {
-        return null;
+        return Collections.emptyList();
     }
     
     @Override

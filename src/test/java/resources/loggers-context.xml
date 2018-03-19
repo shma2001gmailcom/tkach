@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+    <bean id="log" class="org.apache.log4j.Logger" factory-method="getLogger">
+        <constructor-arg type="java.lang.String" value="org.misha.EventLogger"/>
+    </bean>
+    <bean id="consoleEventLogger" class="org.misha.loggers.ConsoleEventLogger"/>
+    <bean id="fileEventLogger" class="org.misha.loggers.FileEventLogger">
+        <constructor-arg value="0"/>
+    </bean>
+    <bean id="cachedEventLogger" class="org.misha.loggers.CachedEventLogger" parent="fileEventLogger">
+        <constructor-arg name="length" value="0"/>
+        <constructor-arg name="logger" ref="log"/>
+    </bean>
+    <bean id="combinedEventLogger" class="org.misha.loggers.CombinedEventLogger">
+        <constructor-arg>
+            <list>
+                <ref bean="fileEventLogger"/>
+                <ref bean="consoleEventLogger"/>
+                <ref bean="cachedEventLogger"/>
+            </list>
+        </constructor-arg>
+        <constructor-arg name="defaultLogger" ref="cachedEventLogger"/>
+    </bean>
+    <bean id="event" class="org.misha.event.Event" scope="prototype">
+        <constructor-arg>
+            <bean class="java.util.GregorianCalendar"/>
+        </constructor-arg>
+        <constructor-arg ref="fastDateFormat"/>
+    </bean>
+    <bean id="fastDateFormat" class="org.apache.commons.lang3.time.FastDateFormat" factory-method="getInstance">
+        <constructor-arg value="0"/>
+    </bean>
+</beans>

@@ -17,7 +17,7 @@ import java.util.Calendar;
 public final class Event {
     private final int id;
     private final FastDateFormat df;
-    private final  Calendar date;
+    private final Calendar date;
     private String msg;
     private EventType type;
     
