@@ -24,7 +24,11 @@ public class ViewTest {
     
     @Test
     public void testView() {
-        for (int i = 0; i < 1000; doTest(), ++i) ;
+        for (int i = 0; i < 1000; ++i) {
+            System.err.print('.');
+            doTest();
+        }
+        System.err.print('\n');
     }
     
     private void doTest() {
@@ -32,7 +36,7 @@ public class ViewTest {
         while (i < Kind.values().length) {
             final int j = i;
             new Thread(new Runnable() {
-            
+    
                 @Override
                 public void run() {
                     if (Kind.values()[j].getView() == null) errorCount.incrementAndGet();
