@@ -2,6 +2,7 @@ package org.misha.loggers;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.misha.client.Kind;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -9,7 +10,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.junit.Assert.assertTrue;
-import static org.misha.client.LoggingClient.Kind;
 
 /**
  * author: misha
@@ -23,10 +23,14 @@ public class ViewTest {
     private static final AtomicInteger errorCount = new AtomicInteger(0);
     
     @Test
-    public void testView() throws Exception {
+    public void testView() {
+        for (int i = 0; i < 1000; doTest(), ++i) ;
+    }
+    
+    private void doTest() {
         int i = 0;
-        final int j = i;
         while (i < Kind.values().length) {
+            final int j = i;
             new Thread(new Runnable() {
             
                 @Override
