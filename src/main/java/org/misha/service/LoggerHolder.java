@@ -43,7 +43,6 @@ public final class LoggerHolder implements LoggingService {
     
     /**
      * add data for view
-     *
      * @param map model-map
      */
     public void logEvents(final Map<String, Object> map) {

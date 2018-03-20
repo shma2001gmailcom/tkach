@@ -11,9 +11,7 @@ public class LoggingClient {
     public enum Kind {
         LIST("list"), CACHED("cached"), COMBINED("combined"), CONSOLE("console"), FILE("file"), DB("db");
     
-        /**
-         * string-value for kind
-         */
+        //string-value for kind
         private final String name;
         
         Kind(String kind) {
