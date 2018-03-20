@@ -33,13 +33,14 @@ public class ViewTest {
     
     private void doTest() {
         int i = 0;
-        while (i < Kind.values().length) {
+        final Kind[] values = Kind.values();
+        while (i < values.length) {
             final int j = i;
             new Thread(new Runnable() {
     
                 @Override
                 public void run() {
-                    if (Kind.values()[j].getView() == null) errorCount.incrementAndGet();
+                    if (values[j].getView() == null) errorCount.incrementAndGet();
                 }
             }).start();
             ++i;
