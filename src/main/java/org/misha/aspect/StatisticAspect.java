@@ -11,6 +11,7 @@ import javax.inject.Named;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * author: misha
@@ -21,12 +22,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Named("statistic")
 public final class StatisticAspect {
     private final Map<Class<?>, AtomicInteger> counter;
+    private final ReentrantLock lock;
     private final Logger log;
     
     @Inject
     public StatisticAspect(final Logger log) {
         this.log = log;
         this.counter = new HashMap<>();
+        lock = new ReentrantLock();
     }
     
     @Pointcut("execution(* *.logEvent(..))")
@@ -37,10 +40,17 @@ public final class StatisticAspect {
     @AfterReturning("allLogEvents()")
     private void count(JoinPoint joinPoint) {
         final Class<?> c = joinPoint.getTarget().getClass();
-        if (!counter.containsKey(c)) {
-            counter.put(c, new AtomicInteger(0));
+        while (true) {
+            if (lock.tryLock()) break;
         }
-        counter.get(c).incrementAndGet();
+        try {
+            if (!counter.containsKey(c)) {
+                counter.put(c, new AtomicInteger(0));
+            }
+            counter.get(c).incrementAndGet();
+        } finally {
+            lock.unlock();
+        }
     }
     
     public void statistic(final Map<String, Object> map) {

@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
 
 import static org.misha.event.EventType.DEFAULT;
 import static org.misha.event.EventType.INFO;
@@ -22,21 +23,32 @@ import static org.misha.event.EventType.INFO;
 public final class CachedEventLogger extends FileEventLogger {
     private final int size;
     private final List<Event> cache = new ArrayList<>();
+    private final ReentrantLock lock;
     
     @Inject
     @Named
     private CachedEventLogger(final String fileName, final int length, final Logger logger) {
         super(fileName, logger);
         size = length;
+        lock = new ReentrantLock();
     }
     
     @Override
     public void logEvent(final Event event) {
-        if (cache.size() <= size) {
-            cache.add(event);
-            return;
+        while (true) {
+            if (lock.tryLock()) {
+                break;
+            }
         }
-        reset();
+        try {
+            if (cache.size() <= size) {
+                cache.add(event);
+                return;
+            }
+            reset();
+        } finally {
+            lock.unlock();
+        }
         super.logEvent(event);
     }
     
