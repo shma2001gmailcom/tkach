@@ -1,5 +1,6 @@
 package org.misha.loggers;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.misha.client.Kind;
@@ -16,6 +17,7 @@ import static org.junit.Assert.assertTrue;
  * date: 3/11/18
  * time: 2:48 PM
  */
+@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration("file:src/main/webapp/WEB-INF/mvc-dispatcher-servlet.xml")
 @ContextConfiguration("file:src/main/webapp/WEB-INF/application-context.xml")
