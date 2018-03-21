@@ -41,7 +41,11 @@ public class ViewTest {
     private static void assertRendered() {
         for (Kind kind : Kind.values()) {
             String view = kind.getView();
-            if (view == null) errorCount.incrementAndGet();
+            if (view == null) {
+                synchronized (errorCount) {
+                    errorCount.incrementAndGet();
+                }
+            }
         }
         assertTrue(errorCount.get() == 0);
     }
@@ -79,7 +83,14 @@ public class ViewTest {
         
         @Override
         public String call() throws Exception {
-            return kind.getView();
+            try {
+                return kind.getView();
+            } catch (Exception e) {
+                synchronized (errorCount) {
+                    errorCount.incrementAndGet();
+                }
+            }
+            return null;
         }
     }
 }

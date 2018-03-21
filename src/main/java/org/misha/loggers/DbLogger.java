@@ -30,7 +30,7 @@ public final class DbLogger implements EventLogger {
     private DataSource dataSource;
     
     @Inject
-    public DbLogger(final JdbcTemplate jdbcTemplate) {
+    private DbLogger(final JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
     
