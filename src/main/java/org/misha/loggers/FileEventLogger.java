@@ -27,7 +27,7 @@ import static org.misha.event.EventType.ERROR;
 @Named
 public class FileEventLogger implements EventLogger {
     private final String fileName;
-    private final Logger log;
+    protected final Logger log;
     private final ReadWriteLock lock;
     
     @Inject

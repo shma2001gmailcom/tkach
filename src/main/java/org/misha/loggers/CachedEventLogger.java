@@ -20,7 +20,6 @@ import static org.misha.event.EventType.INFO;
  */
 @Named
 public final class CachedEventLogger extends FileEventLogger {
-    private final Logger log;
     private final int size;
     private final List<Event> cache = new ArrayList<>();
     
@@ -29,7 +28,6 @@ public final class CachedEventLogger extends FileEventLogger {
     private CachedEventLogger(final String fileName, final int length, final Logger logger) {
         super(fileName, logger);
         size = length;
-        log = logger;
     }
     
     @Override
