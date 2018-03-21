@@ -6,6 +6,7 @@ import org.misha.event.EventType;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -49,6 +50,6 @@ public final class CombinedEventLogger implements EventLogger {
     
     @Override
     public List<String> getEvents() {
-        return null;
+        return Collections.emptyList();
     }
 }
