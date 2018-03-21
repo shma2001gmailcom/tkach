@@ -24,21 +24,15 @@ public class ViewTest {
     
     @Test
     public void testView() {
-        for (int i = 0; i < 1000; doTest(), ++i) ;
+        for (int i = 0; i < 100; ++i) {
+            assertRendered();
+        }
     }
     
-    private void doTest() {
-        int i = 0;
-        while (i < Kind.values().length) {
-            final int j = i;
-            new Thread(new Runnable() {
-                
-                @Override
-                public void run() {
-                    if (Kind.values()[j].getView() == null) errorCount.incrementAndGet();
-                }
-            }).start();
-            ++i;
+    private void assertRendered() {
+        for (Kind kind : Kind.values()) {
+            final String view = kind.getView();
+            if (view == null) errorCount.incrementAndGet();
         }
         assertTrue(errorCount.get() == 0);
     }
