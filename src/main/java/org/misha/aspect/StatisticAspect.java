@@ -40,16 +40,15 @@ public final class StatisticAspect {
     @AfterReturning("allLogEvents()")
     private void count(JoinPoint joinPoint) {
         final Class<?> c = joinPoint.getTarget().getClass();
-        while (true) {
-            if (lock.tryLock()) break;
-        }
-        try {
-            if (!counter.containsKey(c)) {
-                counter.put(c, new AtomicInteger(0));
+        if (lock.tryLock()) {
+            try {
+                if (!counter.containsKey(c)) {
+                    counter.put(c, new AtomicInteger(0));
+                }
+                counter.get(c).incrementAndGet();
+            } finally {
+                lock.unlock();
             }
-            counter.get(c).incrementAndGet();
-        } finally {
-            lock.unlock();
         }
     }
     

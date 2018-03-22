@@ -35,19 +35,16 @@ public final class CachedEventLogger extends FileEventLogger {
     
     @Override
     public void logEvent(final Event event) {
-        while (true) {
-            if (lock.tryLock()) {
-                break;
+        if (lock.tryLock()) {
+            try {
+                if (cache.size() <= size) {
+                    cache.add(event);
+                    return;
+                }
+                reset();
+            } finally {
+                lock.unlock();
             }
-        }
-        try {
-            if (cache.size() <= size) {
-                cache.add(event);
-                return;
-            }
-            reset();
-        } finally {
-            lock.unlock();
         }
         super.logEvent(event);
     }
