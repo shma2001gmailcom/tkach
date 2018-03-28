@@ -20,7 +20,7 @@ import java.util.Random;
  * date: 1/3/18
  * time: 2:27 AM
  */
-@Named
+@Named("loggingService")
 public final class LoggerHolder implements LoggingService {
     private final EventLogger mainLogger;
     private final StatisticAspect statistic;

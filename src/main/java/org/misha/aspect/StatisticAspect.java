@@ -26,7 +26,7 @@ public final class StatisticAspect {
     private final Logger log;
     
     @Inject
-    public StatisticAspect(final Logger log) {
+    public StatisticAspect(@Named final Logger log) {
         this.log = log;
         this.counter = new HashMap<>();
         lock = new ReentrantLock();

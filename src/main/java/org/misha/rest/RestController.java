@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import static org.misha.rest.ViewType.*;
 
@@ -23,7 +24,7 @@ public class RestController {
     private final LoggingService holder;
     
     @Inject
-    RestController(final LoggingService service) {
+    RestController(@Named("loggingService") final LoggingService service) {
         holder = service;
     }
     

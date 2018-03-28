@@ -22,7 +22,8 @@ public final class Event {
     private EventType type;
     
     @Inject
-    private Event(@Named final Calendar calendar, final FastDateFormat df) {
+    @Named
+    private Event(final Calendar calendar, final FastDateFormat df) {
         this.date = calendar;
         this.df = df;
         this.id = new SecureRandom().nextInt();
