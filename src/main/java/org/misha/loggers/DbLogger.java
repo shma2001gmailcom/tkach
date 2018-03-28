@@ -25,7 +25,7 @@ public final class DbLogger implements EventLogger {
     private static final String INSERT_EVENT = "insert into EVENT(EVENT_ID, EVENT_TIME, MESSAGE) values (?, ?, ?)";
     private static final String SELECT_EVENTS = "select * from EVENT";
     private final JdbcTemplate jdbcTemplate;
-    @SuppressWarnings({"unused", "field injection"})
+    @SuppressWarnings("unused")
     @Inject
     private DataSource dataSource;
     
