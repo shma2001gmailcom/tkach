@@ -9,24 +9,24 @@
 ## 5. copy new war from target dir to server webapp dir
 ## 6. start server
 ## 7. open project home page
-appname="tkach"
+app_name="tkach"
 ############### properties ####################
 ################ AT WORK ######################
 ###############################################
 #appfolder="/home/mshevelin/workspace/"${appname}"-assembla"
 #tomcatfolder="/home/mshevelin/workspace/tomcat6"
 #javahome="/usr/lib/jvm/java-7-oracle"
-javahome=/home/misha/sym-misha/work/jdk1.8.0_121
+java_home=/home/misha/sym-misha/work/jdk1.8.0_121
 
 
 ################################################
 ################ AT HOME #######################
 ################################################
-appfolder="/home/misha/sym-misha/workspace/"${appname}
+app_folder="/home/misha/sym-misha/workspace/"${app_name}
 #tomcatfolder="/home/misha/workspace/tomcat6"
 #M3_HOME='/opt/apache-maven-3.2.2'
 #M3_HOME=/home/misha/workspace/apache-maven-3.3.9
-tomcatfolder="/home/misha/sym-misha/workspace/tomcat/"
+tomcat_folder="/home/misha/sym-misha/workspace/tomcat/"
 M3_HOME=/usr/share/maven
 export M3_HOME
 M3=${M3_HOME}/bin
@@ -34,27 +34,31 @@ export M3
 PATH=${PATH}:${M3}
 export PATH
 logfile='./1'
-basepath=/home/misha/sym-misha/workspace/
+base_path=/home/misha/sym-misha/workspace/
 
 # make /logs/tkach.log file
-if [[ ! -e ${basepath}/logs/tkach.log ]]; then
-    mkdir -p ${basepath}/logs
-    touch ${basepath}/logs/tkach.log
+if [[ ! -e ${base_path}/logs/tkach.log ]]; then
+    mkdir -p ${base_path}/logs
+    touch ${base_path}/logs/tkach.log
 fi
 ################################################
-export JAVA_HOME=${javahome}
-tomcatbin=${tomcatfolder}/bin
-tomcatwebapps=${tomcatfolder}/webapps
-if [ ! -e ${appfolder} ]; then echo 'ERROR: no appfolder' ${appfolder} 'found';exit 1; fi
-if [ ! -e ${tomcatbin} ]; then echo 'ERROR: no tomcatbin found';exit 1; fi
-cd ${appfolder}
+export JAVA_HOME=${java_home}
+tomcat_bin=${tomcat_folder}/bin
+tomcat_web_apps=${tomcat_folder}/webapps
+if [ ! -e ${app_folder} ]; then echo 'ERROR: no appfolder' ${app_folder} 'found';exit 1; fi
+if [ ! -e ${tomcat_bin} ]; then echo 'ERROR: no tomcatbin found';exit 1; fi
+if [ !"$(ps axf | grep catalina | grep -v grep)" ]; then
+    cd ${tomcat_bin};
+    bash startup.sh
+fi
+cd ${app_folder}
 mvn clean install $@ | tee out.txt ; test ${PIPESTATUS[0]} -eq 0
 if [ ${PIPESTATUS[0]} -ne "0" ]; then
     echo ===================================================
     echo maven build failed, see output for details;exit 1;
     echo ===================================================
 fi
-cd ${tomcatbin}
+cd ${tomcat_bin}
 if [ "$(ps axf | grep catalina | grep -v grep)" ]; then
     echo ///////////////////////////
     echo        stopping tomcat...
@@ -63,21 +67,21 @@ if [ "$(ps axf | grep catalina | grep -v grep)" ]; then
     echo ///////////////////////////
     echo        tomcat has been stopped
 fi
-cd ${tomcatwebapps}
-if [ -e ${tomcatwebapps}/${appname} ]; then
+cd ${tomcat_web_apps}
+if [ -e ${tomcat_web_apps}/${app_name} ]; then
     echo ///////////////////////////
     echo      remove old deployment...
-    rm -rf -- ${tomcatwebapps}/${appname}
+    rm -rf -- ${tomcat_web_apps}/${app_name}
 fi
-if [ -e  ${tomcatwebapps}/${appname}.war ]; then
+if [ -e  ${tomcat_web_apps}/${app_name}.war ]; then
     echo ///////////////////////////
     echo      remove old war...
-    rm -rf -- ${tomcatwebapps}/${appname}.war
+    rm -rf -- ${tomcat_web_apps}/${app_name}.war
 fi
 echo ///////////////////////////
 echo      deploying new version...
-cp  ${appfolder}/target/${appname}-1.0-SNAPSHOT.war ${tomcatwebapps}/${appname}.war
-cd ${tomcatbin}
+cp  ${app_folder}/target/${app_name}-1.0-SNAPSHOT.war ${tomcat_web_apps}/${app_name}.war
+cd ${tomcat_bin}
 echo ///////////////////////////
 echo         starting tomcat...
 echo ///////////////////////////

@@ -30,7 +30,7 @@ import static org.junit.Assert.assertTrue;
 public class ViewTest {
     private static final AtomicInteger errorCount = new AtomicInteger(0);
     private final Map<Kind, Callable<String>> map = new HashMap<>();
-    private final ExecutorService service = newFixedThreadPool(20);
+    private final ExecutorService service = newFixedThreadPool(2);
     
     {
         for (final Kind kind : Kind.values()) {
@@ -61,7 +61,7 @@ public class ViewTest {
         } finally {
             service.shutdown();
         }
-        //assertRendered();
+        assertRendered();
     }
     
     @Test
