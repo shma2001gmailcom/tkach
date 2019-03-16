@@ -1,6 +1,7 @@
 package org.misha.loggers;
 
-import org.apache.commons.lang3.concurrent.ConcurrentException;
+import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.misha.client.Kind;
@@ -8,7 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -29,10 +30,12 @@ import static org.junit.Assert.assertTrue;
 @ContextConfiguration("file:src/main/webapp/WEB-INF/application-context.xml")
 public class ViewTest {
     private static final AtomicInteger errorCount = new AtomicInteger(0);
-    private final Map<Kind, Callable<String>> map = new HashMap<>();
+    private final Map<Kind, Callable<String>> map = new EnumMap<>(Kind.class);
     private final ExecutorService service = newFixedThreadPool(2);
     
-    {
+    @Before
+    public void before() {
+
         for (final Kind kind : Kind.values()) {
             map.put(kind, new CallableView(kind));
         }
@@ -51,7 +54,7 @@ public class ViewTest {
     }
     
     @Test
-    public void testView() throws ConcurrentException, ExecutionException, InterruptedException {
+    public void testView() throws ExecutionException, InterruptedException {
         try {
             for (int i = 0; i < 10; ++i) {
                 for (final Kind kind : Kind.values()) {

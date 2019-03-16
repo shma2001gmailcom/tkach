@@ -26,7 +26,7 @@ public final class DbLogger implements EventLogger {
     private static final String SELECT_EVENTS = "select * from EVENT";
     private final JdbcTemplate jdbcTemplate;
     @SuppressWarnings("unused")
-    @Inject
+
     private DataSource dataSource;
     
     @Inject
@@ -51,7 +51,8 @@ public final class DbLogger implements EventLogger {
         return Objects.toString(getEvents()).replaceAll("\\[", "")
                 .replaceAll("],", "<br/>").replaceAll("]]", "");
     }
-    
+
+    @Inject
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
     }
@@ -67,4 +68,7 @@ public final class DbLogger implements EventLogger {
             }
         });
     }
+
+
+
 }

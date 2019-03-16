@@ -37,8 +37,8 @@ public final class ConsoleEventLogger implements EventLogger {
     }
     
     @Override
-    public String getDetails() throws Exception {
-        return "console details is unavailable";
+    public String getDetails() throws Throwable {
+        throw new NotImplementedYetThrowable("console details is unavailable");
     }
     
     @Override

@@ -22,10 +22,10 @@ import java.util.Random;
  */
 @Named("loggingService")
 public final class LoggerHolder implements LoggingService {
-    private final EventLogger mainLogger;
-    private final StatisticAspect statistic;
-    private final EventLogger dbLogger;
-    private final ApplicationContext context;
+    private final transient EventLogger mainLogger;
+    private final transient StatisticAspect statistic;
+    private final transient EventLogger dbLogger;
+    private final transient ApplicationContext context;
     
     @Inject
     @Named
@@ -63,7 +63,7 @@ public final class LoggerHolder implements LoggingService {
     }
     
     @Override
-    public String getDetails(final ViewType viewType) throws Exception {
+    public String getDetails(final ViewType viewType) throws Throwable {
         if (viewType == ViewType.DB) {
             return dbLogger.getDetails();
         } else {

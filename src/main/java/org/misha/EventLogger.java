@@ -16,7 +16,7 @@ public interface EventLogger {
     
     boolean suitableFor(EventType type);
     
-    String getDetails() throws Exception;
+    String getDetails() throws Throwable;
     
     List<String> getEvents();
 }

@@ -16,17 +16,19 @@ app_name="tkach"
 #appfolder="/home/mshevelin/workspace/"${appname}"-assembla"
 #tomcatfolder="/home/mshevelin/workspace/tomcat6"
 #javahome="/usr/lib/jvm/java-7-oracle"
-java_home=/home/misha/sym-misha/work/jdk1.8.0_121
-
+java_home=/opt/java8-oracle/jdk1.8.0_181
 
 ################################################
 ################ AT HOME #######################
 ################################################
-app_folder="/home/misha/sym-misha/workspace/"${app_name}
+base_path=/home/misha/workspace/
+app_folder="${base_path}${app_name}"
 #tomcatfolder="/home/misha/workspace/tomcat6"
 #M3_HOME='/opt/apache-maven-3.2.2'
 #M3_HOME=/home/misha/workspace/apache-maven-3.3.9
-tomcat_folder="/home/misha/sym-misha/workspace/tomcat/"
+tomcat_folder=${base_path}"tomcat8"
+cd ${tomcat_folder}
+ls
 M3_HOME=/usr/share/maven
 export M3_HOME
 M3=${M3_HOME}/bin
@@ -34,7 +36,7 @@ export M3
 PATH=${PATH}:${M3}
 export PATH
 logfile='./1'
-base_path=/home/misha/sym-misha/workspace/
+
 
 # make /logs/tkach.log file
 if [[ ! -e ${base_path}/logs/tkach.log ]]; then
@@ -44,6 +46,8 @@ fi
 ################################################
 export JAVA_HOME=${java_home}
 tomcat_bin=${tomcat_folder}/bin
+cd ${tomcat_bin}
+ls
 tomcat_web_apps=${tomcat_folder}/webapps
 if [ ! -e ${app_folder} ]; then echo 'ERROR: no appfolder' ${app_folder} 'found';exit 1; fi
 if [ ! -e ${tomcat_bin} ]; then echo 'ERROR: no tomcatbin found';exit 1; fi
@@ -63,7 +67,7 @@ if [ "$(ps axf | grep catalina | grep -v grep)" ]; then
     echo ///////////////////////////
     echo        stopping tomcat...
     bash shutdown.sh
-    sleep 5
+    sleep 3
     echo ///////////////////////////
     echo        tomcat has been stopped
 fi
@@ -86,8 +90,8 @@ echo ///////////////////////////
 echo         starting tomcat...
 echo ///////////////////////////
 bash startup.sh
-sleep 10
-#firefox "http://localhost:8080/"${appname}
-#chromium-browser 'http://localhost:8080/tkach/rest/list'
-export BROWSER=google-chrome-stable
+sleep 3
+
+export BROWSER=google-chrome
+#export BROWSER=google-chrome-stable
 ${BROWSER} 'http://localhost:8080/tkach/rest/list'

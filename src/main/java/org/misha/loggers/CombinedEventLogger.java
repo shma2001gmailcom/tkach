@@ -44,7 +44,7 @@ public final class CombinedEventLogger implements EventLogger {
     }
     
     @Override
-    public String getDetails() throws Exception {
+    public String getDetails() throws Throwable {
         return defaultLogger.getDetails();
     }
     

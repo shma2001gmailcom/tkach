@@ -32,7 +32,7 @@ public final class LogAspect {
         //a pointcut
     }
     
-    @Pointcut("execution(* org.misha.rest.RestController.fileDetails(..))")
+    @Pointcut("execution(* org.misha.rest.impl.RestController.fileDetails(..))")
     private void details() {
         //a pointcut
     }
